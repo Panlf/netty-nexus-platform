@@ -10,6 +10,7 @@
     <name>netty-nexus-platform</name>
     <modules>
         <module>base-starter</module>
+        <module>http-web</module>
     </modules>
 
     <properties>
