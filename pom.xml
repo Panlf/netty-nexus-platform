@@ -13,6 +13,7 @@
         <module>http-web</module>
         <module>disruptor-deliver-message</module>
         <module>service-rpc</module>
+        <module>chat-websocket</module>
     </modules>
 
     <properties>

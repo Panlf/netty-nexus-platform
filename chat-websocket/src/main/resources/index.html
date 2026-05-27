@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+<meta charset="UTF-8">
+<title>WebSocket Chat Room</title>
+</head>
+<body>
+<script type="text/javascript">
+		var socket;
+		if(!window.WebSocket){
+			window.WebSocket = window.MozWebSocket;
+		}
+		if(window.WebSocket){
+			socket = new WebSocket("ws://localhost:8080/chat");
+			socket.onmessage = function(event){
+				var ta = document.getElementById('msgTxt');
+				ta.value = ta.value + '\n'+event.data;
+			};
+			socket.onopen = function(event){
+				var ta = document.getElementById('msgTxt');
+				ta.value = "连接开启";
+			};
+			socket.onclose = function(event){
+				var ta = document.getElementById('msgTxt');
+				ta.value = ta.value +"\n"+"连接被关闭";
+			};
+		}else{
+			alert("你的浏览器不支持 WebSocket!");
+		}
+		
+		function send(message){
+			if(!window.WebSocket){
+				return;
+			}
+			if(socket.readyState == WebSocket.OPEN){
+				socket.send(message);
+				emptyContent();
+			}else{
+				alert("连接还没有开启。")
+			}
+		}
+		function emptyContent(){
+			document.getElementById('content').value="";
+		}
+	</script>
+	<form action="" onsubmit="return false;">
+		<h1>WebSocket多人聊天室</h1>
+
+        <label for="msgTxt"></label><textarea rows="20" cols="30" id="msgTxt"> 
+		</textarea>
+		<br>
+        <label for="content"></label><input type="text" name="msg" style="width:300px" id="content">
+		<input type="button" value="发送" onclick="send(this.form.msg.value)">
+		<input type="button" value="清空" onclick="emptyContent()">
+	</form>
+</body>
+</html>
