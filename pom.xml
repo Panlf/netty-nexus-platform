@@ -15,6 +15,7 @@
         <module>service-rpc</module>
         <module>chat-websocket</module>
         <module>file-upload</module>
+        <module>binary-data-transfer</module>
     </modules>
 
     <properties>
