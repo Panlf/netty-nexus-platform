@@ -12,6 +12,7 @@
         <module>base-starter</module>
         <module>http-web</module>
         <module>disruptor-deliver-message</module>
+        <module>service-rpc</module>
     </modules>
 
     <properties>
