@@ -66,6 +66,12 @@
 
 该模块将 Netty 的 I/O 线程与业务处理线程彻底分离。Netty 的 `ChannelHandler` 接收消息后，将消息发布到 **LMAX Disruptor**（无锁环形队列）中，由独立的消费者线程池进行业务处理（如数据库写入、复杂计算）。这种设计避免了 I/O 线程被耗时任务阻塞，极大提升了系统吞吐量。该模块展示了如何在高性能中间件中应用 Disruptor 与 Netty 的整合。
 
+### 8. 基于 Netty 实现自定义协议数据的传递
+
+> 模块定位：自定义二进制协议与设备长连接管理
+
+该模块基于 Netty 实现了一个面向物联网设备的长连接服务端，采用自定义二进制协议（`@TAG + 8位十六进制长度 + Base64编码的JSON负载`）进行数据交换。通过实现 `ProtocolMessageDecoder` 和 `ProtocolMessageEncoder`，完成粘包/拆包处理、魔数校验、长度校验及消息体的`Base64解码`与`JSON反序列化`。`HeartHandlerAdapter` 负责心跳消息的识别与响应，`InboundHandlerAdapter `则处理设备注册、设备编码与` ChannelHandlerContext` 的动态绑定（存储于线程安全的 `CacheChannelHandlerMap` 中），以及业务消息的分发。当读空闲超时时，`ReadTimeoutHandler` 会触发异常并关闭无效连接。该架构清晰地展示了 Netty 在自定义协议解析、连接状态管理、心跳保活和业务解耦方面的典型应用，为接入海量设备提供了高并发、低延迟的通信基础。
+
 ---
 
 ## 后续计划
