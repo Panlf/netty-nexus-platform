@@ -7,10 +7,10 @@
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>binary-data-transfer</artifactId>
+    <artifactId>custom-protocol-message</artifactId>
     <packaging>jar</packaging>
 
-    <name>binary-data-transfer</name>
+    <name>custom-protocol-message</name>
 
     <dependencies>
         <dependency>
@@ -47,6 +47,18 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
             <version>2.25.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.21.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.21.1</version>
         </dependency>
     </dependencies>
 </project>
